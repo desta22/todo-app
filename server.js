@@ -4,7 +4,10 @@ const favicon = require('serve-favicon')
 const path = require('path')
 const sanitizeHtml = require('sanitize-html')
 const app = express()
-const port = 3000
+let port = process.env.PORT
+if (port == null || port == '') {
+    port = 3000
+}
 let db
 const connectionString = 'mongodb+srv://todoAppUser:l4sw350Q2XZv9oAD@cluster0.2ye8h.mongodb.net/ToDoApp?retryWrites=true&w=majority'
 
