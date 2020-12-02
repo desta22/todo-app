@@ -4,12 +4,13 @@ const favicon = require('serve-favicon')
 const path = require('path')
 const sanitizeHtml = require('sanitize-html')
 const app = express()
+const dotenv = require('dotenv')
+dotenv.config()
 let port = process.env.PORT
 if (port == null || port == '') {
     port = 3000
 }
 let db
-const connectionString = 'mongodb+srv://todoAppUser:l4sw350Q2XZv9oAD@cluster0.2ye8h.mongodb.net/ToDoApp?retryWrites=true&w=majority'
 
 
 app.use(favicon(path.join(__dirname, '/', 'edit.png')))
@@ -17,7 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('public'))
 
-mongodb.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
+mongodb.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
     db = client.db()
 
     app.listen(port, () => {
